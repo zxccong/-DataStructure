@@ -1,5 +1,18 @@
 /**
  * 使用添加动态数组
+ *
+ *
+ * 总结时间复杂度
+ *
+ * 增加 O(n)
+ *                  增加和删除的对最后一个元素的操作时间复杂度O(1) ,
+ *                  但是考虑到有resize这个炒作，所以会导致了时间复杂度都为O（n）
+ * 删除 O(n)
+ *
+ * 改变 已知索引O(1);未知索引O(n)
+ *
+ * 查找 已知索引O(1);未知索引O(n)
+ *
  */
 public class Array3<E> {
     private E[] data;
@@ -48,7 +61,7 @@ public class Array3<E> {
     }
 
     /**
-     * 添加元素到末尾
+     * 添加元素到末尾      //时间复杂度O(1)无论数据再多，也是使用一次就能完成
      * @param e
      */
     public void addLast(E e){
@@ -65,7 +78,8 @@ public class Array3<E> {
     }
 
     /**
-     * 添加元素到数组前面
+     * 添加元素到数组前面 //时间复杂度O(n)于元素个数成线性关系，元素越多时间越长
+     *
      * @param e
      */
     public void addFirst(E e){
@@ -73,7 +87,7 @@ public class Array3<E> {
     }
 
     /**
-     * 添加元素到自定未知
+     * 添加元素到自定未知    //index的概率可能是0-n之间，所以O（n/2）=O(n),平均是n/2也简单看为n 极端的情况下O（n）
      * @param index
      * @param e
      */
@@ -96,6 +110,10 @@ public class Array3<E> {
         size++;
     }
 
+    /**
+     * 重新分配动态的数组，时间复杂度O（n）  所以总结添加元素的时间复杂度是 O(n)
+     * @param i
+     */
     private void resize(int i) {
         E[] newData= (E[]) new Object[i];
         for (int j = 0; j < size; j++) {
@@ -105,7 +123,7 @@ public class Array3<E> {
     }
 
     /**
-     * 通过index索引位置的元素为e
+     * 通过index索引位置的元素为e     时间复杂度 O(1)
      * @param index
      * @return
      */
@@ -117,7 +135,7 @@ public class Array3<E> {
     }
 
     /**\
-     * 查找数组中是否有元素e
+     * 查找数组中是否有元素e      时间复杂度 O(n)
      * @param e
      * @return
      */
@@ -132,7 +150,7 @@ public class Array3<E> {
     }
 
     /**
-     * 查找数组中元素e所在的位置，如果不存在元素e,则返回-1
+     * 查找数组中元素e所在的位置，如果不存在元素e,则返回-1         时间复杂度O(n)
      * 只能查找一次可设计：查找出所有的位置
      * @param e
      * @return
@@ -147,7 +165,7 @@ public class Array3<E> {
     }
 
     /**
-     * 从数组中删除index位置的 元素，返回删除的元素
+     * 从数组中删除index位置的 元素，返回删除的元素    时间复杂度O(n/2)-> O(n)看成是O(n)
      * @param index
      * @return
      */
@@ -170,7 +188,7 @@ public class Array3<E> {
     }
 
     /**
-     * 删除第一个元素
+     * 删除第一个元素      时间复杂度O（n）
      * @return
      */
     public E removeFirst(){
@@ -178,7 +196,7 @@ public class Array3<E> {
     }
 
     /**
-     * 删除最后一个元素
+     * 删除最后一个元素     时间复杂度O(1) 总的来说删除的时间复杂度O(n)
      * @return
      */
     public E removeLast(){
@@ -197,7 +215,7 @@ public class Array3<E> {
     }
 
     /**
-     * 根据index索引位置设置元素e
+     * 根据index索引位置设置元素e        时间复杂度O(1)
      * @param index
      * @param e
      */
@@ -208,6 +226,10 @@ public class Array3<E> {
         data[index] = e ;
     }
 
+    /**
+     * 重写
+     * @return
+     */
     @Override
     public String toString(){
         StringBuilder res = new StringBuilder();
