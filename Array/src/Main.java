@@ -22,8 +22,10 @@ public class Main {
 //            System.out.println("女");
 //        }
 
-        Array2<Integer> arr = new Array2(20);
-        for (int i = 0; i < 10; i++) {
+//        Array arr = new Array(20);
+//        Array2<Integer> arr = new Array2(20);
+        Array3<Integer> arr = new Array3();//默认10个数据
+        for (int i = 0; i < 30; i++) {
             arr.addLast(i);
         }
         System.out.println("arr = " + arr);
