@@ -22,7 +22,7 @@ public class Main {
 //            System.out.println("女");
 //        }
 
-        Array arr = new Array(20);
+        Array2<Integer> arr = new Array2(20);
         for (int i = 0; i < 10; i++) {
             arr.addLast(i);
         }

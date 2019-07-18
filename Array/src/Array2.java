@@ -1,8 +1,8 @@
 /**
- * 未使用泛型，简单实现数组
+ * 使用泛型
  */
-public class Array {
-    private int[] data;
+public class Array2<E> {
+    private E[] data;
 
     //指向最后一个数组为空的索引
     private int size;
@@ -11,15 +11,15 @@ public class Array {
      * 构造函数，传入数组的容量的capacity构造Array
      * @param capacity
      */
-    public Array(int capacity){
-        data = new int[capacity];
+    public Array2(int capacity){
+        data = (E[]) new Object[capacity];      //历史遗留问题，不支持直接new 一个泛型数组
         size = 0;
     }
 
     /**
      * 无参数的构造函数，默认数组容量capacity=10
      */
-    public Array(){
+    public Array2(){
         this(10);
     }
 
@@ -51,7 +51,7 @@ public class Array {
      * 添加元素到末尾
      * @param e
      */
-    public void addLast(int e){
+    public void addLast(E e){
 //        if (size == data.length){
 //            throw new IllegalArgumentException("AddLast failed . Array is full");
 //
@@ -68,7 +68,7 @@ public class Array {
      * 添加元素到数组前面
      * @param e
      */
-    public void addFirst(int e){
+    public void addFirst(E e){
         add(0,e);
     }
 
@@ -77,7 +77,7 @@ public class Array {
      * @param index
      * @param e
      */
-    public void add(int index,int e){
+    public void add(int index,E e){
         if (size == data.length){
             throw new IllegalArgumentException("Add failed . Array is full");
 
@@ -98,7 +98,7 @@ public class Array {
      * @param index
      * @return
      */
-    int get(int index){
+    E get(int index){
         if (index<0||index>=size){
             throw new IllegalArgumentException("Get Failed Index is illegal");
         }
@@ -110,9 +110,9 @@ public class Array {
      * @param e
      * @return
      */
-    public boolean contain(int e ){
+    public boolean contain(E e ){
         for (int i = 0; i < size; i++) {
-            if (data[i]==e){
+            if (data[i].equals(e)){
                 return true;
             }
 
@@ -126,9 +126,9 @@ public class Array {
      * @param e
      * @return
      */
-    public int find(int e ){
+    public int find(E e ){
         for (int i = 0; i < size; i++) {
-            if (data[i]==e){
+            if (data[i].equals(e)){
                 return i;
             }
         }
@@ -140,16 +140,17 @@ public class Array {
      * @param index
      * @return
      */
-    public int remove(int index){
+    public E remove(int index){
         if (index<0||index>=size){
             throw new IllegalArgumentException("Remove Failed Index is illegal");
         }
 
-        int ret = data[index];
+        E ret = data[index];
         for (int i = index +1; i < size; i++) {
             data[i - 1] = data[i];
         }
         size--;
+        data[size] = null;      //不是必须的考虑java 虚拟机回收 loitering objects,手动的回收更好
         return ret;
     }
 
@@ -157,7 +158,7 @@ public class Array {
      * 删除第一个元素
      * @return
      */
-    public int removeFirst(){
+    public E removeFirst(){
         return remove(0);
     }
 
@@ -165,7 +166,7 @@ public class Array {
      * 删除最后一个元素
      * @return
      */
-    public int removeLast(){
+    public E removeLast(){
         return remove(size-1);
     }
 
@@ -173,7 +174,7 @@ public class Array {
      *  删除指定的元素值一次 （可设计：删除所有，删除后返回值）
      * @param e
      */
-    public void removeElement(int e){
+    public void removeElement(E e){
         int index = find(e);
         if (index != -1){
             remove(index);
@@ -185,7 +186,7 @@ public class Array {
      * @param index
      * @param e
      */
-    void set(int index , int e ){
+    void set(int index , E e ){
         if (index<0||index>=size){
             throw new IllegalArgumentException("Set Failed Index is illegal");
         }
