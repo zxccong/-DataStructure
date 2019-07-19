@@ -4,16 +4,42 @@
  *
  * 总结时间复杂度
  *
- * 增加 O(n)
+ * 增加 O(n)  （最坏的情况）
  *                  增加和删除的对最后一个元素的操作时间复杂度O(1) ,
  *                  但是考虑到有resize这个炒作，所以会导致了时间复杂度都为O（n）
- * 删除 O(n)
+ * 删除 O(n) （最坏的情况）
  *
  * 改变 已知索引O(1);未知索引O(n)
  *
  * 查找 已知索引O(1);未知索引O(n)
  *
- */
+ * 均摊复杂度和防止复杂度震荡（amortized time complexity）
+ *
+ * 假设当前capacity = 8 ,并且每一次添加操作都是用addList()
+ *  1 1 1 1 1 1 1 1 1 8+1 （这里的8+1是指移动8个元素到resize后的新数组需要的操作）
+ * 9次操作，触发一次resize,总共触发17次基本操作
+ *
+ * 假设capacity = n ,n +1次addList，触发resiez ,总共 2n+1次基本操作，
+ * 平均每次addList操作进行2次基本操作
+ *
+ * 平均每次addList操作，进行2次基本操作
+ * 这样均摊计算，时间复杂度是O(1)的
+ * 在例子中，这样均摊计算，比计算最坏情况有意义
+ *
+ * 平均，每次addList操作，进行2次基本操作
+ * 所以时间复杂度为O（1）
+ *
+ *
+ * 复杂度震荡
+ *
+ * 刚好到容量大小中
+ * 增加1次后删除一次2次都需要进行增容，缩容，导致每次 都要进行O(n)的时间复杂度运算
+ *
+ * 解决方法：
+ * 删除的 时候size == capacity/4，才将capacity减半
+ *
+ *
+ * */
 public class Array3<E> {
     private E[] data;
 
@@ -181,7 +207,7 @@ public class Array3<E> {
         size--;
         data[size] = null;      //不是必须的考虑java 虚拟机回收 loitering objects,手动的回收更好
 
-        if (size == data.length/2){
+        if (size == data.length/4&&data.length/2!=0){
             resize(data.length/2);
         }
         return ret;
