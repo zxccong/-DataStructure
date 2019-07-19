@@ -1,5 +1,11 @@
 /**
  * 循环队列
+ *
+ *  * void enqueue         O（1）均摊
+ *  * E dequeue            O（1）均摊
+ *  * E front              O(1)
+ *  * int getSize()        O（1）
+ *  * boolean isEmpty()    O(1)
  */
 public class LoopQueue<E> implements Queue<E> {
 
