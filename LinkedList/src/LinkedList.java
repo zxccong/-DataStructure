@@ -1,3 +1,7 @@
+/**
+ * 链表
+ * @param <E>
+ */
 public class LinkedList<E> {
 
     private class Node{
@@ -22,14 +26,15 @@ public class LinkedList<E> {
         }
     }
 
-    private Node head;
+    private Node demmyHead;
+
     int size;
 
     /**
      * 构造函数
      */
     public LinkedList() {
-        head = null;
+        demmyHead = new Node(null,null);
         size = 0;
     }
 
@@ -49,16 +54,7 @@ public class LinkedList<E> {
         return size == 0;
     }
 
-    //在链表头添加元素
-    public void addFirst(E e){
-//        Node node = new Node(e);
-//        node.next = head;
-//        head = node;
 
-        head = new Node(e, head);
-        size++;
-
-    }
 
     public void add(int index,E e){
         if (index<0|| index>size){
@@ -66,11 +62,9 @@ public class LinkedList<E> {
 
         }
 
-        if (index==0){
-            addFirst(e);
-        }else {
-            Node pre = head;
-            for (int i = 0; i < index-1; i++) {
+
+            Node pre = demmyHead;
+            for (int i = 0; i < index; i++) {
                 pre = pre.next;
             }
 
@@ -82,14 +76,27 @@ public class LinkedList<E> {
             pre.next=new Node(e, pre.next);
             size++;
 
-        }
+
+    }
+
+    //在链表头添加元素
+    public void addFirst(E e){
+//        Node node = new Node(e);
+//        node.next = head;
+//        head = node;
+
+//        head = new Node(e, head);
+//        size++;
+
+        add(0,e);
+
     }
 
     /**
      * 末尾添加元素
      * @param e
      */
-    public void addList(E e){
+    public void addLast(E e){
         add(size, e);
     }
 
