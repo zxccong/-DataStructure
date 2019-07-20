@@ -100,6 +100,100 @@ public class LinkedList<E> {
         add(size, e);
     }
 
+    /**
+     * 获取链表的的值
+     * @param index
+     * @return
+     */
+    public E get(int index){
+        if (index<0|| index>size){
+            throw new IllegalArgumentException("Get failed . Illegal index");
+        }
+
+        Node cur = demmyHead.next;
+        for (int i = 0; i < index; i++) {
+            cur = cur.next;
+        }
+        return cur.e;
+    }
+
+    /**
+     * 获得第一个元素
+     * @return
+     */
+    public E getFirst(){
+        return get(0);
+    }
+
+    /**
+     * 获得最后一个元素
+     * @return
+     */
+    public E getLast() {
+        return get(size - 1);
+    }
+
+    /**
+     * 设置链表元素
+     * @param index
+     * @param e
+     */
+    public void set(int index,E e){
+        if (index<0|| index>size){
+            throw new IllegalArgumentException("Set failed . Illegal index");
+        }
+
+        Node cur = demmyHead.next;
+        for (int i = 0; i < index; i++) {
+            cur = cur.next;
+        }
+        cur.e=e;
+    }
+
+    public boolean contains(E e ){
+        Node cur = demmyHead.next;
+        while (cur != null){
+            if (cur.e.equals(e)){
+                return true;
+            }
+            cur = cur.next;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+
+        StringBuilder res = new StringBuilder();
+
+//        Node cur = demmyHead.next;
+//        while (cur!=null){
+//            res.append(cur + "->");
+//            cur = cur.next;
+//        }
+
+        for(Node cur = demmyHead.next;cur !=null ; cur = cur.next){
+            res.append(cur + "->");
+        }
+        res.append("NULL");
+
+        return res.toString();
+    }
+
+    public static void main(String[] args) {
+        LinkedList<Object> linkedList = new LinkedList<>();
+        for (int i = 0; i < 5; i++) {
+            linkedList.addFirst(i);
+            System.out.println("linkedList = " + linkedList);
+        }
+
+        //插入
+        linkedList.add(2,666);
+        System.out.println("linkedList = " + linkedList);
+
+
+
+    }
 
 
 }
